@@ -1,0 +1,17 @@
+------ MONGO DB -----
+
+-its a non-relational,no-sql,document based,open source dbms
+-Faster
+-Scalable
+-document based -JSON document - data will be stored as key-value pairs
+-Schemaless
+
+
+MySQL               MongoDb
+------------------------------
+
+Database            Database
+Table               Collection
+Row/Tuple/entity    document
+Column              Fields       
+Primarykey          _id (12bit hexadecimal value for every document which is unique)
