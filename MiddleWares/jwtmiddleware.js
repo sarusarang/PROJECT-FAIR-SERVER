@@ -11,6 +11,8 @@ const jwtmiddlewareFun = (req, res, next) => {
 
         if (token) {
 
+            console.log("indise");
+
             const result = jwt.verify(token, process.env.Secret_key)
             req.payload = result.userid
             next()

@@ -65,7 +65,7 @@ exports.homeprojects = async (req, res) => {
 
 }
 
-exports.allprojects = async (req,res) => {
+exports.allprojects = async (req, res) => {
 
 
     try {
@@ -91,13 +91,13 @@ exports.allprojects = async (req,res) => {
 
 }
 
-exports.userprojects = async (req,res) => {
+exports.userprojects = async (req, res) => {
 
     try {
 
         const userId = req.payload
 
-        const result = await projects.find({userId})
+        const result = await projects.find({ userId })
 
         if (result) {
 
@@ -113,6 +113,44 @@ exports.userprojects = async (req,res) => {
     catch (err) {
 
         console.log(err);
+        res.status(406).json(err)
+    }
+
+}
+
+
+exports.editProject = async (req, res) => {
+    
+    const { title, overview, language, github, demo, image } = req.body
+    
+    const userId = req.payload
+    const projectImage = req.file ? req.file.filename : image
+    const { pid } = req.params
+
+    try {
+        const updateProject = await projects.findByIdAndUpdate({ _id: pid }, { title, overview, languages: language, github, demo, image: projectImage, userId }, { new: true })
+        await updateProject.save()
+        res.status(200).json(updateProject)
+    }
+    catch {
+        console.log(err);
+        res.status(406).json(err)
+    }
+
+}
+
+exports.deleteprojects =async (req,res)=>{
+
+    const {pid} =req.params
+
+    try{
+
+        const results = await projects.findByIdAndDelete({_id:pid}) 
+        res.status(200).json(results)
+        console.log("deleted");
+    }
+    catch(err){
+
         res.status(406).json(err)
     }
 
